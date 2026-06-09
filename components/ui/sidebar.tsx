@@ -4,18 +4,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   Bell,
-  Building,
-  File,
-  FileText,
-  HardDrive,
-  Home,
   LayoutDashboard,
-  Map,
   MapPin,
-  MessageCircle,
-  Settings,
-  TrendingUp,
+  HardDrive,
   Users,
+  FileText,
+  Map,
+  Building,
+  Home,
+  File,
+  TrendingUp,
+  Settings,
+  MessageCircle,
 } from "lucide-react";
 import { navItems } from "@/lib/mock-data";
 
@@ -38,23 +38,35 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="hidden md:flex w-72 shrink-0 flex-col border-r border-zinc-800 bg-zinc-900 px-5 py-6">
-      <div className="mb-10 flex items-center justify-between">
+    <aside className="
+      w-64 md:w-72
+      shrink-0
+      flex flex-col
+      border-r border-zinc-800
+      bg-zinc-900
+      px-3 md:px-5
+      py-4 md:py-6
+      h-screen
+      overflow-y-auto
+    ">
+      {/* HEADER */}
+      <div className="mb-6 md:mb-10 flex items-center justify-between">
         <div>
-          <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
+          <p className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-slate-400">
             FibreFlow OS
           </p>
-          <h1 className="text-2xl font-semibold text-white">
-            Network Operations
+          <h1 className="text-lg md:text-2xl font-semibold text-white">
+            Network Ops
           </h1>
         </div>
 
-        <div className="rounded-2xl bg-zinc-800 p-3 text-sky-400">
-          <Bell className="h-5 w-5" />
+        <div className="rounded-2xl bg-zinc-800 p-2 md:p-3 text-sky-400">
+          <Bell className="h-4 w-4 md:h-5 md:w-5" />
         </div>
       </div>
 
-      <nav className="space-y-2 overflow-y-auto">
+      {/* NAV */}
+      <nav className="space-y-1 md:space-y-2">
         {navItems.map((item) => {
           const Icon = iconMap[item.icon] || LayoutDashboard;
           const active = pathname === item.href;
@@ -63,35 +75,31 @@ export function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`group flex items-center gap-3 rounded-2xl px-4 py-3 text-sm transition ${
+              className={`flex items-center gap-2 md:gap-3 rounded-xl px-3 md:px-4 py-2 md:py-3 text-xs md:text-sm transition ${
                 active
-                  ? "bg-slate-800 text-white shadow shadow-slate-900"
-                  : "text-slate-300 hover:bg-slate-800 hover:text-white"
+                  ? "bg-zinc-800 text-white"
+                  : "text-slate-300 hover:bg-zinc-800 hover:text-white"
               }`}
             >
               <Icon className="h-4 w-4" />
-              <span>{item.title}</span>
+              <span className="truncate">{item.title}</span>
             </Link>
           );
         })}
       </nav>
 
-      <div className="mt-auto rounded-3xl bg-slate-900 p-5 text-sm text-slate-300 shadow shadow-black/20">
+      {/* FOOTER */}
+      <div className="mt-6 md:mt-auto rounded-2xl bg-slate-900 p-3 md:p-5 text-xs md:text-sm text-slate-300">
         <p className="text-zinc-400">Live rollout status</p>
 
-        <div className="mt-4 space-y-3">
-          <div className="flex items-center justify-between text-xs text-slate-300">
+        <div className="mt-3">
+          <div className="flex justify-between text-xs">
             <span>Network health</span>
-            <span className="font-semibold text-white">92%</span>
+            <span className="text-white font-semibold">92%</span>
           </div>
 
-          <div className="h-2 overflow-hidden rounded-full bg-zinc-800">
-            <div className="h-full w-[92%] rounded-full bg-sky-500" />
-          </div>
-
-          <div className="flex items-center justify-between text-xs text-slate-400">
-            <span>Blocked jobs</span>
-            <span>9</span>
+          <div className="h-2 mt-2 bg-zinc-800 rounded-full">
+            <div className="h-full w-[92%] bg-sky-500 rounded-full" />
           </div>
         </div>
       </div>
